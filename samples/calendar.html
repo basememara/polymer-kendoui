@@ -4,9 +4,6 @@
 	<title>Kendo UI Calendar Toolkit Component Demo</title>
 	<link rel="stylesheet" href="../styles/lib/kendo/kendo.common.min.css">
 	<link rel="stylesheet" href="../styles/lib/kendo/kendo.default.min.css">
-</head>
-<body>
-	<div class="calendar" />
 
 	<script src="../js/lib/jquery.min.js"></script>
 	<!-- Kendo UI Scripts -->
@@ -17,8 +14,10 @@
 	<!-- Toolkit Scripts -->
 	<script src="../js/lib/toolkit.min.js"></script>
 
-	<script>
-		$('.calendar').kendoCalendar();
-	</script>
+	<!-- Custom Element Import -->
+	<link rel="import" href="../components/k-calendar.html">
+</head>
+<body>
+	<k-calendar></k-calendar>
 </body>
 </html>
