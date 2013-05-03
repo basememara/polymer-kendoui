@@ -1,10 +1,25 @@
-<element name="k-calendar">
+<element name="k-calendar" attributes="date min max">
+  <link rel="stylesheet" href="../styles/lib/kendo/kendo.common.min.css">
+	<link rel="stylesheet" href="../styles/lib/kendo/kendo.default.min.css">
+		
   <template>
-    <div id="calendar"></div>
+  	<div id="calendar"></div>
   </template>
+  
   <script>
-  	//$("#calendar").kendoCalendar();
+  	Toolkit.register(this, {
+  		date: new Date(),
+  		min: new Date("1950-01-01"),
+    	max: new Date("2049-12-31"),
+    	ready: function() {
+    		//var calendarValue = this.date.getDate ? this.date : new Date(this.date);
 
-    Toolkit.register(this);
+    		$(this.$.calendar).kendoCalendar({
+    			value: this.date,
+    			min: this.min,
+    			max: this.max
+    		});
+    	}
+    });
   </script>
 </element>
