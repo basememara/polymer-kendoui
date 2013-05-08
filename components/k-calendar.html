@@ -1,23 +1,29 @@
+<script src="../js/lib/jquery.min.js"></script>
+<!-- Kendo UI Scripts -->
+<script src="../js/lib/kendo/kendo.core.min.js"></script>
+<script src="../js/lib/kendo/kendo.fx.min.js"></script>
+<script src="../js/lib/kendo/kendo.calendar.min.js"></script>
+
 <element name="k-calendar" attributes="value min max">
   <link rel="stylesheet" href="../styles/lib/kendo/kendo.common.min.css">
 	<link rel="stylesheet" href="../styles/lib/kendo/kendo.default.min.css">
-		
+	
   <template>
   	<div id="calendar"></div>
   </template>
   
   <script>
   	Toolkit.register(this, {
-  		value: new Date(),
-  		min: new Date("1950-01-01"),
-    	max: new Date("2049-12-31"),
-    	ready: function() {
-    		$(this.$.calendar).kendoCalendar({
-    			value: this.value,
-    			min: this.min,
-    			max: this.max
-    		});
-    	}
-    });
+      value: new Date(),
+      min: new Date("1950-01-01"),
+      max: new Date("2049-12-31"),
+      ready: function() {
+        $(this.$.calendar).kendoCalendar({
+          value: this.value,
+          min: this.min,
+          max: this.max
+        });
+      }
+    }); 
   </script>
 </element>
