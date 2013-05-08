@@ -7,19 +7,15 @@
   </template>
   
   <script>
-  	function parseDate(date) {
-      return date.getDate ? date : new Date(Date.parse(date));
-    }
-
-    Toolkit.register(this, {
+  	Toolkit.register(this, {
   		value: new Date(),
   		min: new Date("1950-01-01"),
     	max: new Date("2049-12-31"),
     	ready: function() {
     		$(this.$.calendar).kendoCalendar({
-    			value: parseDate(this.value),
-    			min: parseDate(this.min),
-    			max: parseDate(this.max)
+    			value: this.value,
+    			min: this.min,
+    			max: this.max
     		});
     	}
     });
