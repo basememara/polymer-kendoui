@@ -5,16 +5,16 @@
  */
 
 (function() {
-  
+
   // imports
-  
+
   var bindPattern = Toolkit.bindPattern;
-  
+
   // constants
-  
+
   var published$ = '__published';
   var attributes$ = 'attributes';
-  var attrProps$ = 'publish'; 
+  var attrProps$ = 'publish';
   //var attrProps$ = 'attributeDefaults';
 
   var publishAttributes = function(inElement, inPrototype) {
@@ -62,7 +62,7 @@
   function takeAttributes() {
     // for each attribute
     forEach(this.attributes, function(a) {
-      // try to match this attribute to a property (attributess are
+      // try to match this attribute to a property (attributes are
       // all lower-case, so this is case-insensitive search)
       var name = propertyForAttribute.call(this, a.name);
       if (name) {
@@ -83,64 +83,72 @@
         }
       }
     }, this);
-  };
+  }
 
-  var lowerCase = String.prototype.toLowerCase.call.bind(
-      String.prototype.toLowerCase);
-     
   // return the published property matching name, or undefined
   function propertyForAttribute(name) {
     // matchable properties must be published
     var properties = Object.keys(this[published$]);
     // search for a matchable property
     return properties[properties.map(lowerCase).indexOf(name.toLowerCase())];
-  };
+  }
 
-  function createDate(year, month, day, hour, minute, second, millisecond) {
-    // hour through ms are optional and undefined if not provided. Passing undefined
-    // into the Date constructor results in an invalid date. Null is acceptable.
-    return new Date(year, month-1, day,
-      hour ? hour : null, minute ? minute : null,
-      second ? second : null, millisecond ? millisecond : null);
-  };
- 
-  function deserializeValue(inValue, inDefaultValue) {
-    var inferredType = typeof inDefaultValue;
-    if (inferredType === 'string') {
-      return inValue;
-    }
-    switch (inValue) {
-      case '':
-        return inferredType === 'boolean' ? true : '';
-      case 'true':
-        return true;
-      case 'false':
-        return false;
-    }
+  var lowerCase = String.prototype.toLowerCase.call.bind(
+    String.prototype.toLowerCase);
 
-    // If the default attribute value is a Date, provide a Date object
-    // for the specified value.
-    if (inDefaultValue instanceof Date) {
-      // Strip the date string into its component parts and pass each into
-      // the Date constructor.
-      var dateParts = inValue.match(/(\d+)/g);
-      
-      // length < 3 means a non-numeric date format was used (ex. March 20, 2010)
-      if (dateParts.length >= 3) {
-        return createDate.apply(null, dateParts);
-      } else {
-        return new Date(inValue);
+  function deserializeValue(value, defaultValue) {
+    var typeHandlers = {
+      'string': function() {
+        return value;
+      },
+      'date': function() {
+        return new Date(Date.parse(value) || Date.now());
+      },
+      'array': function() {
+        try {
+          // If the string is a true array, we can parse is with the JSON library.
+          value = JSON.parse(value);
+        } catch(e) {
+          value = value.replace(/\s+/g, '').split(',');
+        }
+
+        return value;
+      },
+      'boolean': function() {
+        if (value === '') {
+          return true;
+        }
+
+        return value === 'false' ? false : !!value;
       }
+    };
+
+    // attempt to infer type from default value
+    var inferredType = typeof defaultValue;
+    if (defaultValue instanceof Date) {
+      inferredType = 'date';
+    } else if (defaultValue instanceof Array) {
+      inferredType = 'array';
     }
 
-    var float = parseFloat(inValue);
-    return (String(float) === inValue) ? float : inValue;
+    if (inferredType in typeHandlers) {
+      return typeHandlers[inferredType]();
+    }
+
+    // unless otherwise typed, convert 'true|false' to boolean values
+    if ((/^(true|false)$/i).test(value)) {
+      return (value === 'true');
+    }
+
+    // unless otherwise typed, convert eponymous floats to float values
+    var floatVal = parseFloat(value);
+    return (String(floatVal) === value) ? floatVal : value;
   }
 
   // exports
-  
+
   Toolkit.takeAttributes = takeAttributes;
   Toolkit.publishAttributes = publishAttributes;
   Toolkit.propertyForAttribute = propertyForAttribute;
-  
+
 })();
