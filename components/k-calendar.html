@@ -4,7 +4,8 @@
 <!-- Calendar Script -->
 <script src="../js/lib/kendo/kendo.calendar.min.js"></script>
 
-<element name="k-calendar" attributes="value min max">
+<element name="k-calendar" attributes="date min max culture dates 
+          depth footer format month start change navigate">
   <link rel="stylesheet" href="../styles/lib/kendo/kendo.common.min.css">
   <link rel="stylesheet" href="../styles/lib/kendo/kendo.default.min.css">
 
@@ -14,16 +15,50 @@
   
   <script>
     Toolkit.register(this, {
-      value: new Date(),
-      min: new Date("1950-01-01"),
-      max: new Date("2049-12-31"),
+      date: new Date(),
+      min: new Date("1900/01/01"),
+      max: new Date("2099/12/31"),
+      culture: "en-US",
+      dates: [],
+      depth: "year",
+      footer: null,
+      format: "MM/dd/yyyy",
+      month: {},
+      start: "month",
       ready: function() {
+        var that = this;
         $(this.$.calendar).kendoCalendar({
-          value: this.value,
+          value: this.date,
           min: this.min,
-          max: this.max
+          max: this.max,
+          culture: this.culture,
+          dates: this.dates,
+          depth: this.depth,
+          footer: this.footer,
+          format: this.format,
+          month: this.month,
+          start: this.start,
+          // Kendo UI Calendar Events
+          change: function(e) {
+            window[that.change] ? window[that.change](e) : 
+              that.$.calendar.onchange ? that.$.calendar.onchange : null;
+          },
+          navigate: function(e) {
+            window[that.navigate] ? window[that.navigate](e) : 
+              that.$.calendar.onnavigate ? that.$.calendar.onnavigate() : null;  
+          }
         });
+      },
+      // Kendo UI Calendar Public Methods
+      kendoCalendar: function() {
+        return $(this.$.calendar).data('kendoCalendar');
+      },
+      value: function() {
+        return this.kendoCalendar().value();
+      },
+      current: function() {
+        return this.kendoCalendar().current();
       }
-    }); 
+    });
   </script>
 </element>
