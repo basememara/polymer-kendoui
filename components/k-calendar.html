@@ -25,6 +25,8 @@
       format: "MM/dd/yyyy",
       month: {},
       start: "month",
+      change: '',
+      navigate: '',
       ready: function() {
         var that = this;
         $(this.$.calendar).kendoCalendar({
@@ -53,11 +55,38 @@
       kendoCalendar: function() {
         return $(this.$.calendar).data('kendoCalendar');
       },
-      value: function() {
-        return this.kendoCalendar().value();
+      value: function(value) {
+        return this.kendoCalendar().value(value);
       },
       current: function() {
         return this.kendoCalendar().current();
+      },
+      destroy: function() {
+        return this.kendoCalendar().destroy();
+      },
+      maxDate: function(date) {
+        return this.kendoCalendar().maxDate(date);
+      },
+      minDate: function(date) {
+        return this.kendoCalendar().minDate(date);
+      },
+      navigate: function(date, view) {
+        return this.kendoCalendar().navigate(date, view);
+      },
+      navigateDown: function(value) {
+        return this.kendoCalendar().navigateDown();
+      },
+      navigateToFuture: function() {
+        return this.kendoCalendar().navigateToFuture();
+      },
+      navigateToPast: function() {
+        return this.kendoCalendar().navigateToPast();
+      },
+      navigateUp: function() {
+        return this.kendoCalendar().navigateUp();
+      },
+      view: function() {
+        return this.kendoCalendar().view();
       }
     });
   </script>
