@@ -1,0 +1,112 @@
+<!-- Core Kendo UI Scripts -->
+<link rel="import" href="k-core.html">
+
+<!-- Calendar Script -->
+<script src="../js/lib/kendo/kendo.autocomplete.min.js"></script>
+
+<element name="k-autocomplete" attributes="animation dataSource dataTextField
+      delay enable filter height highlightFirst ignoreCase minLength placeholder
+      separator suggest template change close dataBound open select">
+  <link rel="stylesheet" href="../styles/lib/kendo/kendo.common.min.css">
+  <link rel="stylesheet" href="../styles/lib/kendo/kendo.default.min.css">
+
+  <template>
+    <input id="autocomplete"></input>
+  </template>
+  
+  <script>
+    Polymer.register(this, {
+      animation: {},
+      dataSource: null,
+      dataTextField: null,
+      delay: 200,
+      enable: true,
+      filter: "startsWith",
+      height: 200,
+      highlightFirst: true,
+      ignoreCase: true,
+      minLength: 1,
+      placeholder: "",
+      separator: "",
+      suggest: false,
+      template: null,
+      ready: function() {
+        var that = this;
+        $(this.$.autocomplete).kendoAutoComplete({
+          animation: this.animation,
+          dataSource: window[this.dataSource] || this.dataSource(),
+          dataTextField: this.dataTextField,
+          delay: this.delay,
+          enable: this.enable,
+          filter: this.filter,
+          height: this.height,
+          highlightFirst: this.highlightFirst,
+          ignoreCase: this.ignoreCase,
+          minLength: this.minLength,
+          placeholder: this.placeholder,
+          seperator: this.separator,
+          suggest: this.suggest,
+          template: this.template,
+          // Kendo UI AutoComplete Events
+          change: function(e) {
+            window[that.change] ? window[that.change](e) : 
+              that.$.autocomplete.onchange ? that.$.autocomplete.onchange : null;
+          },
+          close: function(e) {
+            window[that.close] ? window[that.close](e) : 
+              that.$.autocomplete.onclose ? that.$.autocomplete.onclose() : null;  
+          },
+          dataBound: function(e) {
+            window[that.dataBound] ? window[that.dataBound](e) : 
+              that.$.autocomplete.ondatabound ? that.$.autocomplete.ondatabound() : null;  
+          },
+          open: function(e) {
+            window[that.open] ? window[that.open](e) : 
+              that.$.autocomplete.onopen ? that.$.autocomplete.onopen() : null;  
+          },
+          select: function(e) {
+            window[that.select] ? window[that.select](e) : 
+              that.$.autocomplete.onselect ? that.$.autocomplete.onselect() : null;  
+          }
+        });
+      },
+      // Kendo UI AutoComplete Public Methods
+      kendoAutoComplete: function() {
+        return $(this.$.autocomplete).data('kendoAutoComplete');
+      },
+      value: function(value) {
+        return this.kendoCalendar().value(value);
+      },
+      current: function() {
+        return this.kendoCalendar().current();
+      },
+      destroy: function() {
+        return this.kendoCalendar().destroy();
+      },
+      maxDate: function(date) {
+        return this.kendoCalendar().maxDate(date);
+      },
+      minDate: function(date) {
+        return this.kendoCalendar().minDate(date);
+      },
+      navigate: function(date, view) {
+        return this.kendoCalendar().navigate(date, view);
+      },
+      navigateDown: function(value) {
+        return this.kendoCalendar().navigateDown();
+      },
+      navigateToFuture: function() {
+        return this.kendoCalendar().navigateToFuture();
+      },
+      navigateToPast: function() {
+        return this.kendoCalendar().navigateToPast();
+      },
+      navigateUp: function() {
+        return this.kendoCalendar().navigateUp();
+      },
+      view: function() {
+        return this.kendoCalendar().view();
+      }
+    });
+  </script>
+</element>

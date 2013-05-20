@@ -1,3 +1,3 @@
-# toolkitchen-kendoui
+# polymer-kendoui
 
-Toolkit Components (http://toolkitchen.github.io/) for Kendo UI Widgets
+Polymer Project Components (http://polymer-project.appspot.com/) for Kendo UI Widgets

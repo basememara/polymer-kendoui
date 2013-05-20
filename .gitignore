@@ -1,3 +1,4 @@
 .DS_Store
-js/lib/toolkit/platform
-js/lib/toolkit/tools
+js/lib/polymer/platform
+js/lib/polymer/tools
+js/lib/polymer/src

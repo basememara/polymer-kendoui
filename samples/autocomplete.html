@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+	<title>Kendo UI Autcomplete Polymer Component Demo</title>
+
+	<!-- Toolkit Scripts -->
+	<script src="../js/lib/polymer/polymer.min.js"></script>
+
+	<!-- Custom Element Import -->
+	<link rel="import" href="../components/k-autocomplete.html">
+	<style>
+		div {
+			padding: 1em;
+		}
+
+		k-autcomplete {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<span>Basic Autocomplete</span>
+		<k-autocomplete dataSource="data"></k-autocomplete>
+		<script>
+			var data = ["Brandon", "Burke", "Todd"];
+		</script>
+	</div>
+</body>
+</html>
