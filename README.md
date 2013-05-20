@@ -26,7 +26,7 @@ Visit https://github.com/kendo-labs/polymer-kendoui to grab the latest source.
 
 ## How to Contribute
 
-If you would like to contribute to polymer-kendoui's source code, please read the [guidelines for pull requests and contributions](https://github.com/kendo-labs/polymer-kendoui/CONTRIBUTING.md). Following these guidelines will help make your contributions easier to bring in to the next release.
+If you would like to contribute to polymer-kendoui's source code, please read the [guidelines for pull requests and contributions](https://github.com/kendo-labs/polymer-kendoui/blob/master/CONTRIBUTING.md). Following these guidelines will help make your contributions easier to bring in to the next release.
 
 ## Getting Help
 
