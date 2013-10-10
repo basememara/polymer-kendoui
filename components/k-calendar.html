@@ -4,7 +4,7 @@
 <!-- Calendar Script -->
 <script src="../js/lib/kendo/kendo.calendar.min.js"></script>
 
-<element name="k-calendar" attributes="date min max culture dates 
+<polymer-element name="k-calendar" attributes="date min max culture dates
           depth footer format month start change navigate">
   <link rel="stylesheet" href="../styles/lib/kendo/kendo.common.min.css">
   <link rel="stylesheet" href="../styles/lib/kendo/kendo.default.min.css">
@@ -14,7 +14,7 @@
   </template>
   
   <script>
-    Polymer.register(this, {
+    Polymer('k-calendar', {
       date: new Date(),
       min: new Date("1900/01/01"),
       max: new Date("2099/12/31"),
@@ -27,7 +27,7 @@
       start: "month",
       change: '',
       navigate: '',
-      ready: function() {
+      created: function() {
         var that = this;
         $(this.$.calendar).kendoCalendar({
           value: this.date,
@@ -42,12 +42,10 @@
           start: this.start,
           // Kendo UI Calendar Events
           change: function(e) {
-            window[that.change] ? window[that.change](e) : 
-              that.$.calendar.onchange ? that.$.calendar.onchange : null;
+            that.fire('change');
           },
           navigate: function(e) {
-            window[that.navigate] ? window[that.navigate](e) : 
-              that.$.calendar.onnavigate ? that.$.calendar.onnavigate() : null;  
+            that.fire('navigate');
           }
         });
       },
@@ -90,4 +88,4 @@
       }
     });
   </script>
-</element>
+</polymer-element>

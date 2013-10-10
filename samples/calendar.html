@@ -9,7 +9,7 @@
 	<!-- Custom Element Import -->
 	<link rel="import" href="../components/k-calendar.html">
 	<style>
-		div {
+		div.example {
 			padding: 1em;
 		}
 
@@ -19,24 +19,24 @@
 	</style>
 </head>
 <body>
-	<div>
-		<span>Events With Global Function</span>
-		<k-calendar date="2013/03/20" change="signalChange" navigate="signalNavigate"></k-calendar>
+	<div class="example">
+		<span>Events With Event Listeners</span>
+		<k-calendar date="2013/03/20"></k-calendar>
 		<script>
-		 window.signalChange = function(e) {
-		 	console.log("(Global) New Value: " + e.sender.value());
-		 };
+		 window.addEventListener('change', function(e) {
+		 	console.log("(Global) New Value: " + e.target.value());
+		 });
 
-		 window.signalNavigate = function(e) {
+		 window.addEventListener('navigate', function(e) {
 		 	console.log("(Global) Navigated!");
-		 };
+		 });
 		</script>
 	</div>
-	<div>
+	<div class="example">
 		<span>Events with kendo.bind</span>
 		<k-calendar id="kendoCal"></k-calendar>
 		<script>
-			document.addEventListener('WebComponentsReady', function() { 
+			document.addEventListener('WebComponentsReady', function() {
 				var cal = document.querySelector('#kendoCal').kendoCalendar();
 
 				cal.bind('change', function(e) {
@@ -45,27 +45,27 @@
 			});
 		</script>
 	</div>
-	<div>
+	<div class="example">
 		<span>Basic Calendar</span>
 		<k-calendar date="2014/12/25"></k-calendar>
 	</div>
-	<div>
+	<div class="example">
 		<span>Setting Culture</span>
-		<k-calendar date="2013-07-31" culture="de-DE"></k-calendar>
+		<k-calendar date="2013/07/31" culture="de-DE"></k-calendar>
 	</div>
-	<div>
+	<div class="example">
 		<span>Setting Depth</span>
 		<k-calendar depth="year"></k-calendar>
 	</div>
-	<div>
+	<div class="example">
 		<span>Footer</span>
 		<k-calendar footer="Today - #=kendo.toString(data, 'd') #"></k-calendar>
 	</div>
-	<div>
+	<div class="example">
 		<span>Format</span>
 		<k-calendar format="yyyy/MM/dd"></k-calendar>
 	</div>
-	<div>
+	<div class="example">
 		<span>Start</span>
 		<k-calendar start="year"></k-calendar>
 	</div>
